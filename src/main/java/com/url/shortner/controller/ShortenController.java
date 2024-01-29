@@ -10,7 +10,7 @@ public class ShortenController {
     @GetMapping("/getShortenedUrl")
     public String getShortenedUrl(){
         //TODO - to add URL fetch logic from a db (nosql is planned to be used)
-        String url = "";
+        String url = "someValue";
         //TODO - must return Http entity to handle error codes
         return url;
     }
