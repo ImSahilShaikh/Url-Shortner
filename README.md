@@ -1,2 +1,2 @@
 # Url-Shortner
-Trying out various things in SpringBootApplication like loggig, client side load balancing and creating a URL shortner app
+Trying out various things in SpringBootApplication like logging, client-side load balancing, and creating a URL shortener app
