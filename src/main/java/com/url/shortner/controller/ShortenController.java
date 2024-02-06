@@ -1,5 +1,9 @@
 package com.url.shortner.controller;
 
+import com.url.shortner.model.Url;
+import com.url.shortner.repo.UrlRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -7,16 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ShortenController {
+
+    @Autowired
+    private UrlRepository urlRepository;
+
     @GetMapping("/getShortenedUrl")
-    public String getShortenedUrl(){
-        //TODO - to add URL fetch logic from a db (nosql is planned to be used)
-        String url = "someValue";
-        //TODO - must return Http entity to handle error codes
-        return url;
+    public ResponseEntity<?> getShortenedUrl(){
+        return ResponseEntity.ok(this.urlRepository.findAll());
     }
 
     @PostMapping("/createShortUrl")
-    public void createShortUrl(@RequestBody String urlInfo){
-        //TODO - must return Http entity to handle error codes
+    public ResponseEntity<?> createShortUrl(@RequestBody Url urlInfo){
+        Url url = this.urlRepository.save(urlInfo);
+        return ResponseEntity.ok(url);
     }
 }
