@@ -4,13 +4,12 @@ import com.url.shortner.ShortenerUtilities;
 import com.url.shortner.model.Url;
 import com.url.shortner.repo.UrlRepository;
 import com.url.shortner.service.UrlShorteningService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 @RestController
@@ -36,5 +35,12 @@ public class ShortenController {
         Url url = this.urlRepository.save(urlInfo);
 
         return ResponseEntity.ok(url);
+    }
+
+    @GetMapping("/{shortLink}")
+    public ResponseEntity<?> redirectToOriginalUrl(@PathVariable String shortLink, HttpServletResponse response) throws IOException {
+        Url urlToRedirect = this.urlRepository.findByShortenedUrl(shortLink);
+        response.sendRedirect(urlToRedirect.getUrl());
+        return null;
     }
 }
