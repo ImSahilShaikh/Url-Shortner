@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+
 @RestController
 public class ShortenController {
 
@@ -29,6 +31,8 @@ public class ShortenController {
     public ResponseEntity<?> createShortUrl(@RequestBody Url urlInfo){
         System.out.println(shorteningService.generateShortUrl(urlInfo));
         urlInfo.setShortenedUrl(ShortenerUtilities.getShortenedUrl(urlInfo.getUrl()));
+        urlInfo.setCreatedDate(LocalDateTime.now());
+        urlInfo.setExpiryDate(LocalDateTime.now().plusDays(2));
         Url url = this.urlRepository.save(urlInfo);
 
         return ResponseEntity.ok(url);

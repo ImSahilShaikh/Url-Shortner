@@ -1,14 +1,20 @@
 package com.url.shortner.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Document(collection = "urls")
 public class Url {
+    @Id
     private String urlId;
     private String url;
     private String shortenedUrl;
-    private String createdDate;
-    private String expiryDate;
+    private LocalDateTime createdDate;
+    private LocalDateTime expiryDate;
 
     public String getUrlId() {
         return urlId;
@@ -34,19 +40,19 @@ public class Url {
         this.shortenedUrl = shortenedUrl;
     }
 
-    public String getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
-    public String getExpiryDate() {
+    public LocalDateTime getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(String expiryDate) {
+    public void setExpiryDate(LocalDateTime expiryDate) {
         this.expiryDate = expiryDate;
     }
 
