@@ -3,6 +3,7 @@ package com.url.shortner.controller;
 import com.url.shortner.ShortenerUtilities;
 import com.url.shortner.constants.ControllerConstants;
 import com.url.shortner.model.Url;
+import com.url.shortner.model.UrlCreateRequest;
 import com.url.shortner.repo.UrlRepository;
 import com.url.shortner.service.UrlShorteningService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,12 +33,13 @@ public class ShortenController {
     }
 
     @PostMapping(ControllerConstants.CREATE_SHORT_URL)
-    public ResponseEntity<?> createShortUrl(@RequestBody Url urlInfo){
-        System.out.println(shorteningService.generateShortUrl(urlInfo));
-        urlInfo.setShortenedUrl(ShortenerUtilities.getShortenedUrl(urlInfo.getUrl()));
-        urlInfo.setCreatedDate(LocalDateTime.now());
-        urlInfo.setExpiryDate(LocalDateTime.now().plusDays(2));
-        Url url = this.urlRepository.save(urlInfo);
+    public ResponseEntity<?> createShortUrl(@RequestBody UrlCreateRequest urlInfo){
+        Url urlToShorten = new Url();
+        urlToShorten.setUrl(urlInfo.getOriginalUrl());
+        urlToShorten.setShortenedUrl(ShortenerUtilities.getShortenedUrl(urlToShorten.getUrl()));
+        urlToShorten.setCreatedDate(LocalDateTime.now());
+        urlToShorten.setExpiryDate(LocalDateTime.now().plusDays(2));
+        Url url = this.urlRepository.save(urlToShorten);
 
         return ResponseEntity.ok(url);
     }
