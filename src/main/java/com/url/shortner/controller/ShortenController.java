@@ -38,9 +38,7 @@ public class ShortenController {
     }
 
     @GetMapping(ControllerConstants.REDIRECT_TO_ORIGINAL_URL)
-    public ResponseEntity<?> redirectToOriginalUrl(@PathVariable String shortLink, HttpServletResponse response) throws IOException {
-        Url urlToRedirect = this.urlRepository.findByShortenedUrl(shortLink);
-        response.sendRedirect(urlToRedirect.getUrl());
-        return null;
+    public ResponseEntity<?> redirectToOriginalUrl(@PathVariable String shortLink, HttpServletResponse response) {
+        return shorteningService.redirectToOriginalUrl(shortLink,response);
     }
 }
