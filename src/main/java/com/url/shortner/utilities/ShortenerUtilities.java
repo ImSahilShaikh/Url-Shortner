@@ -1,4 +1,4 @@
-package com.url.shortner;
+package com.url.shortner.utilities;
 
 import com.google.common.hash.Hashing;
 

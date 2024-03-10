@@ -1,11 +1,11 @@
 package com.url.shortner.controller;
 
-import com.url.shortner.ShortenerUtilities;
 import com.url.shortner.constants.ControllerConstants;
 import com.url.shortner.model.Url;
 import com.url.shortner.model.UrlCreateRequest;
 import com.url.shortner.repo.UrlRepository;
 import com.url.shortner.service.UrlShorteningService;
+import com.url.shortner.utilities.ShortenerUtilities;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
