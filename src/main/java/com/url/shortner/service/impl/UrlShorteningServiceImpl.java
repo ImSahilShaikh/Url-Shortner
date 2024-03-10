@@ -26,10 +26,10 @@ public class UrlShorteningServiceImpl implements UrlShorteningService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UrlShorteningServiceImpl.class);
 
     @Autowired
-    UrlRepository repository;
+    private UrlRepository repository;
 
     @Autowired
-    Environment environment;
+    private Environment environment;
 
     @Override
     public ResponseEntity<?> generateShortUrl(final UrlCreateRequest url) {
@@ -51,8 +51,8 @@ public class UrlShorteningServiceImpl implements UrlShorteningService {
 
     @Override
     public ResponseEntity<?> redirectToOriginalUrl(String shortLink, HttpServletResponse response) {
-        Url urlToRedirect = this.repository.findByShortenedUrl(shortLink);
         try {
+            Url urlToRedirect = this.repository.findByShortenedUrl(shortLink);
             response.sendRedirect(urlToRedirect.getUrl());
         } catch (Exception e) {
             LOGGER.trace("Something went wrong while redirecting to the original URL :", e);
