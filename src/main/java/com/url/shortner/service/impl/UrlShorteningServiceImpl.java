@@ -7,7 +7,6 @@ import com.url.shortner.service.UrlShorteningService;
 import com.url.shortner.utilities.ShortenerUtilities;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.loadbalancer.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +41,11 @@ public class UrlShorteningServiceImpl implements UrlShorteningService {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    @Override
+    public ResponseEntity<?> getAllUrls() {
+        return ResponseEntity.ok(this.repository.findAll());
     }
 
     @Override
