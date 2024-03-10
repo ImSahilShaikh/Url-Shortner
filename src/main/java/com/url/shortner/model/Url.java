@@ -1,13 +1,14 @@
 package com.url.shortner.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.url.shortner.constants.PropertyConstants;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Document(collection = "urls")
+@Document(collection = PropertyConstants.DB_COLLECTION_NAME)
 public class Url {
     @Id
     private String urlId;
