@@ -33,15 +33,8 @@ public class ShortenController {
     }
 
     @PostMapping(ControllerConstants.CREATE_SHORT_URL)
-    public ResponseEntity<?> createShortUrl(@RequestBody UrlCreateRequest urlInfo){
-        Url urlToShorten = new Url();
-        urlToShorten.setUrl(urlInfo.getOriginalUrl());
-        urlToShorten.setShortenedUrl(ShortenerUtilities.getShortenedUrl(urlToShorten.getUrl()));
-        urlToShorten.setCreatedDate(LocalDateTime.now());
-        urlToShorten.setExpiryDate(LocalDateTime.now().plusDays(2));
-        Url url = this.urlRepository.save(urlToShorten);
-
-        return ResponseEntity.ok(url);
+    public ResponseEntity<?> createShortUrl(@RequestBody UrlCreateRequest urlRequest){
+        return shorteningService.generateShortUrl(urlRequest);
     }
 
     @GetMapping(ControllerConstants.REDIRECT_TO_ORIGINAL_URL)
