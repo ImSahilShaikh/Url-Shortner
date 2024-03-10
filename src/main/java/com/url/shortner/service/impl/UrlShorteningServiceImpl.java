@@ -1,5 +1,6 @@
 package com.url.shortner.service.impl;
 
+import com.url.shortner.constants.PropertyConstants;
 import com.url.shortner.model.Url;
 import com.url.shortner.model.UrlCreateRequest;
 import com.url.shortner.repo.UrlRepository;
@@ -7,17 +8,22 @@ import com.url.shortner.service.UrlShorteningService;
 import com.url.shortner.utilities.ShortenerUtilities;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Service
 public class UrlShorteningServiceImpl implements UrlShorteningService {
 
     @Autowired
     UrlRepository repository;
+
+    @Autowired
+    Environment environment;
 
     @Override
     public ResponseEntity<?> generateShortUrl(final UrlCreateRequest url) {
@@ -26,7 +32,7 @@ public class UrlShorteningServiceImpl implements UrlShorteningService {
         urlToShorten.setUrl(url.getOriginalUrl());
         urlToShorten.setShortenedUrl(ShortenerUtilities.getShortenedUrl(urlToShorten.getUrl()));
         urlToShorten.setCreatedDate(LocalDateTime.now());
-        urlToShorten.setExpiryDate(LocalDateTime.now().plusDays(2));
+        urlToShorten.setExpiryDate(LocalDateTime.now().plusDays(Long.parseLong(Objects.requireNonNull(environment.getProperty(PropertyConstants.URL_EXPIRY_DURATION_DAYS)))));
         Url savedUrl = this.repository.save(urlToShorten);
 
         return ResponseEntity.ok(savedUrl);
