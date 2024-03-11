@@ -69,7 +69,6 @@ public class UrlShorteningServiceImpl implements UrlShorteningService {
             LOGGER.trace("Unable to fetch all records : ", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Error(ErrorConstants.DB_EC, ErrorConstants.DB_EM));
         }
-
     }
 
     @Override
