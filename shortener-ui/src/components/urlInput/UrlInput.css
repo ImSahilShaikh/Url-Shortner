@@ -1,0 +1,13 @@
+.form-container {
+    width: 50rem;
+}
+
+.form-label {
+    display: inherit;
+    justify-content: center;
+}
+
+
+/* .short-url-details {
+    display: inherit;
+} */
