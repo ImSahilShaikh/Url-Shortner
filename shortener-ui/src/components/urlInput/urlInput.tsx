@@ -1,8 +1,9 @@
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Stack } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import generateUrl from "../../api/apiCall";
 import React, { useState } from "react";
 import { ShortUrlResponseData } from "../../interface/shortUrlResponseData";
+import DisplayShortUrl from "../displayUrlDetails/displayUrlDetails";
 
 export default function UrlInput() {
   const [inputUrl, setInputUrl] = useState("");
@@ -28,20 +29,26 @@ export default function UrlInput() {
   };
 
   return (
-    <Form>
-      <Form.Label>Enter URL to shorten here</Form.Label>
-      <Form.Control
-        type="text"
-        placeholder="Url to Shorten"
-        onChange={handleInputChange}
-        value={inputUrl}
-      ></Form.Control>
-      <Button onClick={handleUrlGeneration} variant="primary">
-        Generate
-      </Button>
-      {shortUrl !== "" && (
-        <Form.Label>Shortened Url is : {shortUrl}</Form.Label>
-      )}
-    </Form>
+    <>
+      <div className="form-container">
+        <Form>
+          <Stack gap={2}>
+            <Form.Label>Enter URL to shorten here</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Url to Shorten"
+              onChange={handleInputChange}
+              value={inputUrl}
+            ></Form.Control>
+            <Button onClick={handleUrlGeneration} variant="primary">
+              Generate
+            </Button>
+          </Stack>
+        </Form>
+        <div className="display-container">
+          {shortUrl !== "" && <DisplayShortUrl shortUrl={shortUrl} />}
+        </div>
+      </div>
+    </>
   );
 }
