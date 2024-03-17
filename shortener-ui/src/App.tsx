@@ -1,7 +1,12 @@
 import "./App.css";
+import PageView from "./page/pageView";
 
 function App() {
-  return <>Hey</>;
+  return (
+    <>
+      <PageView></PageView>
+    </>
+  );
 }
 
 export default App;
