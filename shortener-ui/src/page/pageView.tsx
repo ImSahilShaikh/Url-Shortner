@@ -1,4 +1,4 @@
-import UrlInput from "../components/urlInput/urlInput";
+import UrlInput from "../components/UrlInput/UrlInput";
 
 export default function PageView() {
   return (

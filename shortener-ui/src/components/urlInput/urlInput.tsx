@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import generateUrl from "../../api/apiCall";
 import React, { useState } from "react";
 import { ShortUrlResponseData } from "../../interface/shortUrlResponseData";
-import DisplayShortUrl from "../displayUrlDetails/displayUrlDetails";
+import DisplayShortUrl from "../DisplayUrlDetails/DisplayUrlDetails";
 
 export default function UrlInput() {
   const [inputUrl, setInputUrl] = useState("");
