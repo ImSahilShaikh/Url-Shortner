@@ -1,7 +1,6 @@
 import { Nav } from "react-bootstrap";
 import { ShortUrlProp } from "../../interface/shortUrlProp";
 import { API_BASE_URL } from "../../constants/apiConstants";
-import "./DispalyUrlDetails.css";
 
 export default function DisplayUrlDetails(props: ShortUrlProp) {
   const url = API_BASE_URL + props.shortUrl;

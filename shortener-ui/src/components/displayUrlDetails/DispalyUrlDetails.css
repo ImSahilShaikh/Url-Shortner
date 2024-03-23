@@ -1,9 +1,0 @@
-.url-details-container-visible {
-    display: flex;
-    width: 100%;
-    visibility: visible;
-}
-
-.url-details-container-hidden {
-    visibility: hidden;
-}

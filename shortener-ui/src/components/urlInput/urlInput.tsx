@@ -1,14 +1,14 @@
-import { Button, Form, Stack } from "react-bootstrap";
+import { Button, Form, Spinner, Stack, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import generateUrl from "../../api/apiCall";
 import React, { useState } from "react";
 import { ShortUrlResponseData } from "../../interface/shortUrlResponseData";
 import DisplayShortUrl from "../DisplayUrlDetails/DisplayUrlDetails";
-import "./UrlInput.css";
 
 export default function UrlInput() {
   const [inputUrl, setInputUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputUrl(event.target.value);
@@ -19,6 +19,7 @@ export default function UrlInput() {
   };
 
   const handleUrlGeneration = async () => {
+    setLoading(true);
     try {
       const responseData: ShortUrlResponseData | undefined = await generateUrl(
         inputUrl
@@ -29,13 +30,16 @@ export default function UrlInput() {
         throw Error("Undefined response");
       }
     } catch (error) {
+      setShortUrl("Error Url 12341234");
       console.log("Something went wrong in url generation", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <>
-      <div className="form-container">
+    <Row className="justify-content-center align-items-center vh-100">
+      <Col md={6} className="mx-auto text-center">
         <Form>
           <Stack gap={2}>
             <Form.Label>
@@ -51,7 +55,7 @@ export default function UrlInput() {
             <Button
               onClick={handleUrlGeneration}
               variant="primary"
-              disabled={inputUrl.trim().length === 0}
+              disabled={inputUrl.trim().length === 0 || loading}
             >
               Generate
             </Button>
@@ -59,14 +63,16 @@ export default function UrlInput() {
             <Button
               onClick={clearInput}
               variant="secondary"
-              disabled={inputUrl.trim().length === 0}
+              disabled={inputUrl.trim().length === 0 || loading}
             >
               Clear
             </Button>
           </Stack>
         </Form>
-      </div>
-      {shortUrl !== "" && <DisplayShortUrl shortUrl={shortUrl} />}
-    </>
+        <div className="short-url-details">
+          {shortUrl && <DisplayShortUrl shortUrl={shortUrl} />}
+        </div>
+      </Col>
+    </Row>
   );
 }
