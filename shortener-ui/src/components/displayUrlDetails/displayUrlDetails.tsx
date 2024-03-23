@@ -1,12 +1,12 @@
-import { Nav } from "react-bootstrap";
 import { ShortUrlProp } from "../../interface/shortUrlProp";
 import { API_BASE_URL } from "../../constants/apiConstants";
+import { Link } from "@mui/material";
 
 export default function DisplayUrlDetails(props: ShortUrlProp) {
   const url = props.shortUrl === "" ? "" : API_BASE_URL + props.shortUrl;
   return (
-    <Nav.Link className="url-details-container" href={url}>
+    <Link underline="hover" className="url-details-container" href={url}>
       {url}
-    </Nav.Link>
+    </Link>
   );
 }
