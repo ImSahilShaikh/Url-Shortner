@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import generateUrl from "../../api/apiCall";
 import React, { useState } from "react";
 import { ShortUrlResponseData } from "../../interface/shortUrlResponseData";
-import DisplayShortUrl from "../DisplayUrlDetails/DisplayUrlDetails";
+import DisplayUrlDetails from "../displayUrlDetails/displayUrlDetails";
 
 export default function UrlInput() {
   const [inputUrl, setInputUrl] = useState("");
@@ -70,7 +70,7 @@ export default function UrlInput() {
           </Stack>
         </Form>
         <div className="short-url-details">
-          {shortUrl && <DisplayShortUrl shortUrl={shortUrl} />}
+          {shortUrl && <DisplayUrlDetails shortUrl={shortUrl} />}
         </div>
       </Col>
     </Row>
