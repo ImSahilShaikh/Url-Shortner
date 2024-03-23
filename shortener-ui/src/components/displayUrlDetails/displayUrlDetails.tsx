@@ -3,7 +3,7 @@ import { ShortUrlProp } from "../../interface/shortUrlProp";
 import { API_BASE_URL } from "../../constants/apiConstants";
 
 export default function DisplayUrlDetails(props: ShortUrlProp) {
-  const url = API_BASE_URL + props.shortUrl;
+  const url = props.shortUrl === "" ? "" : API_BASE_URL + props.shortUrl;
   return (
     <Nav.Link className="url-details-container" href={url}>
       {url}

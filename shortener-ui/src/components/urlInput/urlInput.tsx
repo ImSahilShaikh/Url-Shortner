@@ -1,9 +1,12 @@
-import { Button, Form, Stack, Row, Col } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
 import generateUrl from "../../api/apiCall";
 import React, { useState } from "react";
 import { ShortUrlResponseData } from "../../interface/shortUrlResponseData";
 import DisplayUrlDetails from "../displayUrlDetails/displayUrlDetails";
+import TextField from "@mui/material/TextField/TextField";
+import Button from "@mui/material/Button/Button";
+import { Container, Grid } from "@mui/material";
+
+import "./urlInput.css";
 
 export default function UrlInput() {
   const [inputUrl, setInputUrl] = useState("");
@@ -16,6 +19,7 @@ export default function UrlInput() {
 
   const clearInput = () => {
     setInputUrl("");
+    setShortUrl("");
   };
 
   const handleUrlGeneration = async () => {
@@ -38,41 +42,52 @@ export default function UrlInput() {
   };
 
   return (
-    <Row className="justify-content-center align-items-center vh-100">
-      <Col md={6} className="mx-auto text-center">
-        <Form>
-          <Stack gap={2}>
-            <Form.Label>
-              <h2>Enter URL to shorten here</h2>
-            </Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Url to Shorten"
+    <Grid
+      container
+      justifyContent="center"
+      alignItems="center"
+      className="input-container"
+    >
+      <Container maxWidth="sm">
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              id="filled-basic"
+              label="Enter URL to Shorten"
               onChange={handleInputChange}
               value={inputUrl}
+              variant="filled"
             />
+          </Grid>
 
+          <Grid item xs={6}>
+            <Button
+              onClick={clearInput}
+              variant="contained"
+              color="error"
+              disabled={inputUrl.trim().length === 0 || loading}
+            >
+              Cancel
+            </Button>
+          </Grid>
+
+          <Grid item container justifyContent="flex-end" xs={6}>
             <Button
               onClick={handleUrlGeneration}
-              variant="primary"
+              variant="contained"
               disabled={inputUrl.trim().length === 0 || loading}
             >
               Generate
             </Button>
-
-            <Button
-              onClick={clearInput}
-              variant="secondary"
-              disabled={inputUrl.trim().length === 0 || loading}
-            >
-              Clear
-            </Button>
-          </Stack>
-        </Form>
-        <div className="short-url-details">
-          {shortUrl && <DisplayUrlDetails shortUrl={shortUrl} />}
-        </div>
-      </Col>
-    </Row>
+          </Grid>
+          <Grid item xs={6}>
+            <div className="short-url-details">
+              {<DisplayUrlDetails shortUrl={shortUrl} />}
+            </div>
+          </Grid>
+        </Grid>
+      </Container>
+    </Grid>
   );
 }
